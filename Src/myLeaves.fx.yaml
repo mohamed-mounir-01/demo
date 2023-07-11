@@ -1,0 +1,377 @@
+myLeaves As screen:
+    BackgroundImage: ='gradient red'
+    ImagePosition: =ImagePosition.Fill
+    LoadingSpinnerColor: =RGBA(164, 38, 44, 1)
+    OnVisible: |-
+        =ClearCollect(
+            Header,
+            {
+                Title: "Title ",
+                Manager: "Approver",
+                PlannedUP: "Planned/UnPlanned",
+                SD: "Start Date",
+                ED: "End Date",
+                Status: "Leave Status",
+                Departement: "Departement",
+                Action: "Action"
+            }
+        );
+        ClearCollect (PlannedUnplannedLeave, {Value: "All Leaves Type"}, Choices ( [@Leaves]. 'Select Type'));
+        ClearCollect (Departement, {Value: "All Departements"},Choices([@Leaves].Departement));
+        ClearCollect (Status, {Value: "All Status"},Choices([@Leaves].'Leave status'));
+
+    RectQuickActionBar2_1 As rectangle:
+        BorderColor: =RGBA(89, 0, 0, 1)
+        Fill: =RGBA(164, 38, 44, 1)
+        Height: =88
+        Width: =Parent.Width
+        ZIndex: =1
+
+    Label5_1 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(251, 251, 251, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =66
+        Size: =30
+        Text: ="My Leaves"
+        Width: =362
+        X: =460
+        Y: =12
+        ZIndex: =2
+
+    Icon2 As icon.BackArrow:
+        BorderColor: =RGBA(89, 0, 0, 1)
+        Color: =RGBA(89, 0, 0, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(244, 244, 244, 1)
+        Height: =80
+        Icon: =Icon.BackArrow
+        OnSelect: =Back(ScreenTransition.Fade)
+        Width: =98
+        X: =27
+        Y: =5
+        ZIndex: =3
+
+    Image3_1 As image:
+        BorderColor: =RGBA(89, 0, 0, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        Height: =88
+        HoverFill: =ColorFade(Self.Fill, 70%)
+        Image: ='LEA_BIG.D-635f4e3a'
+        OnSelect: =Navigate(Home,ScreenTransition.Fade)
+        Width: =214
+        X: =1132
+        Y: =1
+        ZIndex: =4
+
+    Gallery3 As gallery.galleryVertical:
+        BorderColor: =RGBA(89, 0, 0, 1)
+        DelayItemLoading: =true
+        Height: =507
+        Items: |-
+            =Filter(
+                Leaves,
+                Substitute(
+                    DropdownDeprt.Selected.Value,
+                    "All Departements",
+                    ""
+                ) in Departement.Value,
+                Substitute(
+                    DropdownStats.Selected.Value,
+                    "All Status",
+                    ""
+                ) in 'Leave status'.Value,
+                Or(TextInput2.Text in Title,TextInput2.Text in Manager.Value)
+                
+            )
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplateFill: =If (ThisItem. IsSelected, RGBA(243, 145, 145, 0.8), RGBA(0, 0, 0,0))
+        TemplateSize: =104
+        Width: =1366
+        Y: =259
+        ZIndex: =5
+
+        Label6 As label:
+            BorderColor: =RGBA(89, 0, 0, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            OnSelect: =Select(Parent)
+            Size: =13
+            Text: =ThisItem.Titre
+            X: =40
+            Y: =40
+            ZIndex: =1
+
+        Label7 As label:
+            BorderColor: =RGBA(89, 0, 0, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            OnSelect: =Select(Parent)
+            Size: =13
+            Text: =ThisItem.Departement.Value
+            X: =982
+            Y: =40
+            ZIndex: =2
+
+        Label8 As label:
+            BorderColor: =RGBA(89, 0, 0, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            OnSelect: =Select(Parent)
+            Size: =13
+            Text: =ThisItem.Manager.Value
+            X: =174
+            Y: =40
+            ZIndex: =3
+
+        Button6 As button:
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            DisabledFill: =RGBA(244, 244, 244, 1)
+            Fill: =RGBA(164, 38, 44, 1)
+            FontWeight: =FontWeight.Semibold
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =ColorFade(RGBA(164, 38, 44, 1), -20%)
+            OnSelect: |-
+                =EditForm(Form1);Navigate(applyLeave,ScreenTransition.Fade,{SelectedItem:Gallery3.Selected})
+            Size: =15
+            Text: ="EDIT"
+            X: =1177
+            Y: =40
+            ZIndex: =4
+
+        Label11 As label:
+            BorderColor: =RGBA(89, 0, 0, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            OnSelect: =Select(Parent)
+            Size: =13
+            Text: =ThisItem.'Select Type'.Value
+            X: =362
+            Y: =40
+            ZIndex: =6
+
+        Label12 As label:
+            BorderColor: =RGBA(89, 0, 0, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            OnSelect: =Select(Parent)
+            Size: =13
+            Text: =ThisItem.'Start Date'
+            X: =494
+            Y: =40
+            ZIndex: =7
+
+        Label13 As label:
+            BorderColor: =RGBA(89, 0, 0, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            OnSelect: =Select(Parent)
+            Size: =13
+            Text: =ThisItem.'End Date'
+            Width: =108
+            X: =644
+            Y: =40
+            ZIndex: =8
+
+        Label14 As label:
+            BorderColor: =RGBA(89, 0, 0, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            OnSelect: =Select(Parent)
+            Size: =13
+            Text: =ThisItem.'Leave status'.Value
+            Width: =106
+            X: =817
+            Y: =40
+            ZIndex: =9
+
+    Gallery4 As gallery.galleryVertical:
+        BorderColor: =RGBA(89, 0, 0, 1)
+        DelayItemLoading: =true
+        Height: =117
+        Items: =Header
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        ShowScrollbar: =false
+        TemplateSize: =84
+        Width: =1366
+        Y: =158
+        ZIndex: =6
+
+        RectQuickActionBar2_3 As rectangle:
+            BorderColor: =RGBA(203, 102, 102, 1)
+            Fill: =RGBA(203, 102, 102, 1)
+            Width: =1366
+            ZIndex: =1
+
+        Label33 As label:
+            Align: =Align.Center
+            BorderColor: =RGBA(89, 0, 0, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            FontWeight: =FontWeight.Bold
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.Departement
+            X: =975
+            Y: =Label46.Y
+            ZIndex: =2
+
+        Label34 As label:
+            Align: =Align.Center
+            BorderColor: =RGBA(89, 0, 0, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            FontWeight: =FontWeight.Bold
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.ED
+            Width: =98
+            X: =647
+            Y: =Label46.Y
+            ZIndex: =3
+
+        Label37 As label:
+            Align: =Align.Center
+            BorderColor: =RGBA(89, 0, 0, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            FontWeight: =FontWeight.Bold
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.Manager
+            X: =164
+            Y: =Label46.Y
+            ZIndex: =4
+
+        Label38 As label:
+            Align: =Align.Center
+            BorderColor: =RGBA(89, 0, 0, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            FontWeight: =FontWeight.Bold
+            Height: =55
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.PlannedUP
+            Width: =128
+            X: =342
+            Y: =25
+            ZIndex: =5
+
+        Label39 As label:
+            Align: =Align.Center
+            BorderColor: =RGBA(89, 0, 0, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            FontWeight: =FontWeight.Bold
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.SD
+            X: =468
+            Y: =Label46.Y
+            ZIndex: =6
+
+        Label40 As label:
+            Align: =Align.Center
+            BorderColor: =RGBA(89, 0, 0, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            FontWeight: =FontWeight.Bold
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.Status
+            X: =796
+            Y: =Label46.Y
+            ZIndex: =7
+
+        Label46 As label:
+            Align: =Align.Center
+            BorderColor: =RGBA(89, 0, 0, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            FontWeight: =FontWeight.Bold
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.Title
+            Y: =25
+            ZIndex: =8
+
+        Label47 As label:
+            Align: =Align.Center
+            BorderColor: =RGBA(89, 0, 0, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            FontWeight: =FontWeight.Bold
+            Height: =32
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.Action
+            Width: =86
+            X: =1210
+            Y: =Label46.Y
+            ZIndex: =9
+
+    TextInput2 As text:
+        BorderColor: =RGBA(89, 0, 0, 1)
+        BorderThickness: =2
+        Color: =RGBA(0, 0, 0, 1)
+        Default: =""
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        FocusedBorderThickness: =4
+        Height: =38
+        HintText: ="Search description"
+        HoverBorderColor: =RGBA(89, 0, 0, 1)
+        HoverColor: =RGBA(0, 0, 0, 1)
+        HoverFill: =RGBA(222, 179, 184, 1)
+        Size: =13
+        Width: =354
+        X: =45
+        Y: =108
+        ZIndex: =7
+
+    DropdownDeprt As dropdown:
+        BorderColor: =RGBA(89, 0, 0, 1)
+        ChevronBackground: =RGBA(164, 38, 44, 1)
+        ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+        ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+        ChevronHoverBackground: =ColorFade(RGBA(164, 38, 44, 1), -20%)
+        ChevronHoverFill: =RGBA(255, 255, 255, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        Height: =38
+        HoverColor: =RGBA(0, 0, 0, 1)
+        HoverFill: =RGBA(222, 179, 184, 1)
+        Items: =Departement.Value
+        PressedColor: =RGBA(255, 255, 255, 1)
+        PressedFill: =RGBA(89, 0, 0, 1)
+        SelectionFill: =RGBA(164, 38, 44, 1)
+        Size: =13
+        Width: =276
+        X: =754
+        Y: =108
+        ZIndex: =9
+
+    DropdownStats As dropdown:
+        BorderColor: =RGBA(89, 0, 0, 1)
+        ChevronBackground: =RGBA(164, 38, 44, 1)
+        ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+        ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+        ChevronHoverBackground: =ColorFade(RGBA(164, 38, 44, 1), -20%)
+        ChevronHoverFill: =RGBA(255, 255, 255, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        Height: =38
+        HoverColor: =RGBA(0, 0, 0, 1)
+        HoverFill: =RGBA(222, 179, 184, 1)
+        Items: =Status.Value
+        PressedColor: =RGBA(255, 255, 255, 1)
+        PressedFill: =RGBA(89, 0, 0, 1)
+        SelectionFill: =RGBA(164, 38, 44, 1)
+        Size: =13
+        Width: =270
+        X: =1076
+        Y: =108
+        ZIndex: =10
+

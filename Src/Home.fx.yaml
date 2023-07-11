@@ -1,0 +1,116 @@
+Home As screen:
+    BackgroundImage: =
+    Fill: =RGBA(251, 251, 251, 1)
+    ImagePosition: =ImagePosition.Center
+    LoadingSpinnerColor: =RGBA(164, 38, 44, 1)
+
+    LblAppName1_1 As label:
+        Align: =Align.Center
+        Color: =RGBA(168, 0, 0, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.'Lato Black'
+        FontWeight: =FontWeight.Bold
+        Height: =88
+        HoverColor: =RGBA(0, 0, 0, 1)
+        Size: =36
+        Text: ="HOME PAGE"
+        Width: =Parent.Width
+        Y: =46
+        ZIndex: =1
+
+    Button3 As button:
+        BorderThickness: =8
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        Fill: =RGBA(164, 38, 44, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =148
+        HoverColor: =RGBA(164, 38, 44, 1)
+        HoverFill: =ColorFade(RGBA(255, 255, 255, 0), -20%)
+        OnSelect: |-
+            =ResetForm(Form1);
+            NewForm(Form1);
+            Navigate(applyLeave,ScreenTransition.Fade)
+        Size: =22
+        Text: ="Apply Leave"
+        Width: =358
+        X: =205
+        Y: =258
+        ZIndex: =2
+
+    Button4 As button:
+        BorderThickness: =8
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        Fill: =RGBA(164, 38, 44, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =144
+        HoverColor: =RGBA(164, 38, 44, 1)
+        HoverFill: =ColorFade(RGBA(255, 255, 255, 0), -20%)
+        OnSelect: =Navigate(leavesAssignedToMe,ScreenTransition.Fade)
+        Size: =22
+        Text: ="Leave Request Assigned To Me"
+        Width: =358
+        X: =205
+        Y: =540
+        ZIndex: =3
+
+    Button5 As button:
+        BorderThickness: =8
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        Fill: =RGBA(164, 38, 44, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =148
+        HoverColor: =RGBA(184, 0, 0, 1)
+        HoverFill: =ColorFade(RGBA(255, 255, 255, 0), -20%)
+        OnSelect: =Navigate(myLeaves,ScreenTransition.Fade)
+        Size: =22
+        Text: ="My Leaves"
+        Width: =361
+        X: =768
+        Y: =258
+        ZIndex: =4
+
+    Label3 As label:
+        BorderColor: =RGBA(89, 0, 0, 1)
+        Color: =RGBA(0, 0, 0, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =44
+        Size: =18
+        Text: ="Leave Request"
+        Underline: =true
+        Width: =320
+        X: =93
+        Y: =204
+        ZIndex: =5
+
+    Label4 As label:
+        BorderColor: =RGBA(89, 0, 0, 1)
+        Color: =RGBA(0, 0, 0, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =36
+        Size: =18
+        Text: ="Leave Request Assigned To Me "
+        Underline: =true
+        Width: =396
+        X: =93
+        Y: =493
+        ZIndex: =6
+
+    Image2 As image:
+        BorderColor: =RGBA(89, 0, 0, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        Height: =188
+        Image: ='best-practices-lear'
+        Width: =338
+        X: =1028
+        Y: =580
+        ZIndex: =7
+

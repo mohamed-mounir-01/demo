@@ -1,0 +1,31 @@
+{
+  "b524a47c-918d-46bd-84d5-d3c15dd1f95a": {
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/u/shgogna/globalperconnector-train1/1.0.1639.3312/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://usmsac-my.sharepoint.com/personal/mohamed_mounir_usms_ac_ma": {
+        "dataSources": {
+          "Approvers": {
+            "tableName": "7c3ebe87-f90a-445c-841f-ad5d150f0c34"
+          },
+          "Leaves": {
+            "tableName": "caaa74eb-c514-426e-a623-cb1b96efc829"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "Approvers",
+      "Leaves"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "b524a47c-918d-46bd-84d5-d3c15dd1f95a"
+  }
+}
